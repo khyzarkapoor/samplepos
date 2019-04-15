@@ -7,7 +7,7 @@ const moment = MomentRange.extendMoment(Moment);
 
 //user schema
 const UserSchema = mongoose.Schema({
-    fullname:{
+    name:{
         type: String
     },
     email:{
@@ -23,110 +23,59 @@ const UserSchema = mongoose.Schema({
         type:String,
         required:true
     },
-    rights:[String],
-    isparent:{
-        type:Boolean
-    },
-    isdelegate:{
-        type:Boolean
-    },
-    parent:{
-        type:String
-    },
-    parents:[String],
-    type:{
-        type:String
-    },
-    expirybundle:{
-        type:Date,
-        default:moment.utc().toDate()
-    },
-    encryption:{
-        type:String,
-        default:'disable'
-    },
-    smstp:{
-        type:Number,
-        default:0
-    },
-    watp:{
-        type:Number,
-        default:0
-    },
-    creditsms:{
-        type:Number,
-        default:0
-    },
-    creditwhatsapp:{
-        type:Number,
-        default:0
-    },
-    isactivated:{
-        type:Boolean,
-        default:false
-    },
-    issuspended:{
-        type:Boolean,
-        default:false
-    },
     created:{
-        type:Date
+        type:Date,
+        default: moment.utc().add(5,'hours').toDate()
     },
-    ufone:{
-        type:String,
-        default:""
-    },
-    telenor:{
-        type:String,
-        default:""
-    },
-    zong:{
-        type:String,
-        default:""
-    },
-    jazz:{
-        type:String,
-        default:""
-    },
-    warid:{
-        type:String,
-        default:""
-    }
 });
 
-//to get this function from outside, export it
+//to get this function from outside, export it.
 const User = module.exports = mongoose.model('User',UserSchema);
 
-
-module.exports.getUserById = function(id, callback){
-    User.findById(id,callback);
+module.exports.getUserById = function(id,callback){
+    User.findOne(
+        {
+            _id:id
+        },
+        (err,doc)=>{
+            if(err){
+                callback(err,null)
+            }else{
+                callback(null,doc);
+            }
+        }
+    )
 }
 
-module.exports.getUserByEmail = function(email, callback){
-    const query = {email: email};
-    User.findOne(query,callback);
+module.exports.getUserByEmail = function(email,callback){
+    User.findOne(
+        {
+            email:email
+        },
+        (err,doc)=>{
+            if(err){
+                callback(err,null);
+            }
+            callback(null,doc);
+        }
+    )
 }
 
+// this method will hash the user's passwor.
 module.exports.addUser = function(newUser, callback){
-    
     bcrypt.genSalt(10, (err,salt)=>{
         bcrypt.hash(newUser.password,salt,(err,hash)=>{
             if(err){
                 throw err;
-                //res.json({success:false,msg:err});
             }else{
-                //res.json({success:false,msg:err});
                 newUser.password = hash;
                 newUser.save(callback);
             }
-            
         });
     });
-    
 }
 
-
-
+// this method will compare the given password to its hash
 module.exports.comparePassword = function(password,hash,callback){
     bcrypt.compare(password,hash,(err,isMatch)=>{
         if(err) throw err;
