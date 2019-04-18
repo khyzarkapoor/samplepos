@@ -1,0 +1,38 @@
+<section>
+  <div class="row">
+    <div class="col-md-6 offset-md-3 col-xs-12">
+      <div>
+        <p class="lead"><u>Edit Product</u></p>
+      </div>
+      <div>
+        <form (submit)="update()">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" [(ngModel)]="name" name="name" required>
+              </div>
+              <div class="form-group">
+                  <label>Category</label>
+                <select [(ngModel)]="category" name="category" class="form-control" required>
+                  <option value="" disabled selected>Select Category</option>
+                  <option value="food">Food</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                  <label>Base Price</label>
+                <input type="number" class="form-control" [(ngModel)]="baseprice" name="baseprice" required>
+              </div>
+              <div class="form-group">
+                  <label>Quantity</label>
+                <input type="number" class="form-control" [(ngModel)]="quantity" name="quantity" required>
+              </div>
+              <div class="form-group">
+                <input type="submit" value="Update Product" class="btn btn-primary btn-sm btn-block">
+                <input type="button" (click)="deleteProduct()" value="Delete Product" class="btn btn-danger btn-sm btn-block">
+              </div>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+</section>

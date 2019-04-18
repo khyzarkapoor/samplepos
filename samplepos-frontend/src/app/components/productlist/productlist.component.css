@@ -1,0 +1,44 @@
+#wrapper{
+    position: relative;
+    box-sizing: border-box;
+}
+
+
+#newproduct{
+    position: absolute;
+    margin: 0px;
+    right: 0px;
+    background:#607D8B;
+    color:white;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50px;
+    font-size: small;
+}
+
+#newproduct:hover{
+    background:#777;
+}
+
+#productlist{
+    margin: 0px;
+    padding: 10px 10px 10px 0px;
+    font-weight: bold;
+}
+
+table{
+    font-size:small;
+}
+
+table thead tr{
+    background: #607D8B;
+    color:white;
+}
+
+table th{
+    font-weight: 400;
+}
+
+.btn-warning{
+    font-size: smaller !important;
+}

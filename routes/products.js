@@ -72,8 +72,8 @@ router.put("/edit",passport.authenticate('jwt',{session:false}),(req,res)=>{
 });
 
 // remove existing product via _id
-router.delete("/remove",passport.authenticate('jwt',{session:false}),(req,res)=>{
-    let id = req.body.id;
+router.delete("/remove/:id",passport.authenticate('jwt',{session:false}),(req,res)=>{
+    let id = req.params.id;
 
     Product.findOneAndRemove(
         {
@@ -99,6 +99,29 @@ router.delete("/remove",passport.authenticate('jwt',{session:false}),(req,res)=>
 router.get("/all",passport.authenticate('jwt',{session:false}),(req,res)=>{
     Product.find(
         {},
+        (err,docs)=>{
+            if(err){
+                res.json({
+                    success:false,
+                    error:err
+                })
+            }else{
+                res.json({
+                    success:true,
+                    data:docs
+                })
+            }
+        }
+    )
+});
+
+// get all products by category
+router.get("/all/category/:category",passport.authenticate('jwt',{session:false}),(req,res)=>{
+    let category = req.params.category;
+    Product.find(
+        {
+            category:category
+        },
         (err,docs)=>{
             if(err){
                 res.json({

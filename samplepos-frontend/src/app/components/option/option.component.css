@@ -1,0 +1,13 @@
+.optionbox{
+    text-align: center;
+    box-sizing: border-box;
+    border: 1px solid #333;
+    padding: 50px 0px 50px 0px;
+    text-transform: uppercase;
+}
+
+.optionbox:hover{
+    cursor: pointer;
+    background: #607D8B;
+    color:white;
+}

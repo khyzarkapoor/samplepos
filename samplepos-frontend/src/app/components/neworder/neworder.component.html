@@ -1,0 +1,53 @@
+<section>
+  <div class="row">
+    <div class="col-md-4 menucontainer">
+      <div class="menuwrapper">
+        <a class="menu" [ngClass]="{'active':foodactive===true}" id="food" (click)="getAllFood()">Food</a>
+        <a class="menu" [ngClass]="{'active':othersactive===true}" id="others" (click)="getAllOthers()">Others</a>
+      </div>
+      <hr>
+      <div class="contentwrapper" *ngIf="contentitems.length>0">
+        <input [disabled]="item.newquantity===0" *ngFor="let item of contentitems; let i=index" type="button" value="{{item.name}} ({{item.newquantity}})" (click)="addToTable(item)" class="contentbtn btn btn-primary btn-sm">
+      </div>
+    </div>
+    <div class="col-md-8">
+        <div class="table table-responsive">
+            <table class="table table-bordered table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Category</th>
+                  <th>Unit Price</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of addeditems">
+                  <td>{{item._id.substr(-8)}}</td>
+                  <td>{{item.name}}</td>
+                  <td>{{item.category}}</td>
+                  <td>{{item.baseprice}}Rs.</td>
+                  <td><input type="button" value="+" class="btn btn-warning btn-sm" (click)="addquantity(item._id)">&nbsp;&nbsp;&nbsp;{{item.quantity>0?item.quantity:0}}&nbsp;&nbsp;&nbsp;<input type="button" value="-" class="btn btn-warning btn-sm" (click)="subquantity(item._id)"></td>
+                  <td>{{item.baseprice * item.quantity}}Rs.</td>
+                  <td><input type="button" value="Del" class="btn btn-danger btn-sm" (click)="deleteproduct(item._id)"></td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="5">
+                    Total Bill : {{totalbill}}Rs.
+                  </td>
+                  <td colspan="2">
+                      <input type="button" (click)="checkout()" value="CheckOut" class="btn btn-primary btn-sm btn-block">
+                    </td>
+                </tr>
+              </tfoot>
+            </table>
+        </div>
+    </div>
+  </div>
+</section>
+

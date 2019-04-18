@@ -1,9 +1,0 @@
-.hoverselected{
-    color:#fff;
-    background: #1565C0;
-}
-
-.btn.focus, .btn:focus {
-    outline: 0;
-    box-shadow: 0 0 0 0rem;
-}

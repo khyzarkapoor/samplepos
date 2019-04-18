@@ -11,22 +11,10 @@ var lock = new AsyncLock();
 //add new
 router.post('/add', passport.authenticate('jwt', { session: false }), (req, res) => {
 
-
     lock.acquire("verify", function (done) {
-        console.log("lock enter");
-        // get the order details 
-        // let orderdetails = [
-        //     {
-        //         productid: "5cb4408c2655652a280ebfa1",
-        //         quantity: 1,
-        //         price: 10
-        //     },
-        //     {
-        //         productid: "5cb441135906b12af48158c7",
-        //         quantity: 1,
-        //         price: 10
-        //     }
-        // ];
+        
+        // lock acquired.
+
         let orderdetails = JSON.parse(req.body.orderdetails);
         let orderamount = req.body.orderamount;
 
@@ -62,7 +50,6 @@ router.post('/add', passport.authenticate('jwt', { session: false }), (req, res)
                     console.log("ERROR: ", err);
                 }
 
-                console.log("All iterations have finished");
                 
 
                 if (unverifiedproducts.length > 0) {
@@ -101,7 +88,6 @@ router.post('/add', passport.authenticate('jwt', { session: false }), (req, res)
                                 throw err;
                             }
 
-                            console.log("All subtractions have finished");
 
                             let newOrder = new Order({
                                 order:orderdetails,
@@ -130,7 +116,7 @@ router.post('/add', passport.authenticate('jwt', { session: false }), (req, res)
         );
 
     }, function (err, ret) {
-        console.log("lock released")
+        // lock released
     }, {});
 
 

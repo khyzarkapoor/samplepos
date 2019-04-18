@@ -16,7 +16,7 @@ mongoose.connect(config.database);
 
 //check if connected
 mongoose.connection.on('connected',()=>{
-    console.log("Connected to DB " + config.database);
+    console.log("Connected to DB ");
 });
 
 //check if db error
@@ -60,25 +60,25 @@ app.use(passport.session());
 require('./config/passport')(passport);
 
 //routes file
-app.use('/users', users);
-app.use('/products', products); 
-app.use('/orders', orders); 
+app.use('/api/users', users);
+app.use('/api/products', products); 
+app.use('/api/orders', orders); 
 
-// app.get('/*', function(req, res) {
-//     res.sendFile(path.join(__dirname, '/public', 'index.html'));
-// });
-
-app.get("/",function(req,res){
-    res.end("SamplePOS Homepage.")
+app.all('/*', function(req, res) {
+    res.sendFile(path.join(__dirname, '/public', 'index.html'));
 });
 
-app.get('*',function(req,res){
-    res.send(
-        "<h3>404 Page Not found</h3><br/>"+
-        "<a href='/'>SamplePOS Homepage</a>"
-    )
-    res.end("404 Page Not Found.")
-})
+// app.get("/",function(req,res){
+//     res.end("SamplePOS Homepage.")
+// });
+
+// app.get('*',function(req,res){
+//     res.send(
+//         "<h3>404 Page Not found</h3><br/>"+
+//         "<a href='/'>SamplePOS Homepage</a>"
+//     )
+//     res.end("404 Page Not Found.")
+// })
 
 //create server
 app.listen(port,()=>{

@@ -20,7 +20,7 @@ const OrderSchema = mongoose.Schema({
     },
     created:{
         type:Date,
-        default: moment.utc().add(5,'hours').toDate()
+        default: () =>  moment(Date.now()).utcOffset('+0500').format('YYYY-MM-DD HH:mm:ss')
     }
 });
 

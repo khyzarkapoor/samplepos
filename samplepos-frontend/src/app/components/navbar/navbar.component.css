@@ -1,0 +1,49 @@
+#navbar{
+    background: #607D8B;
+    color:white;
+}
+
+#navbarcontainer{
+    position: relative;
+}
+
+#navbarcontainer label{
+    padding: 15px 0px 15px 0px;
+    margin: 0px;
+    font-weight: bold;
+}
+
+#logout{
+    position: absolute;
+    right: 15px;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 100 !important;
+}
+
+#logout:hover{
+    color:maroon;
+}
+
+#profile{
+    position: absolute;
+    right: 85px;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 100 !important;
+}
+
+#profile:hover{
+    color:maroon;
+}
+
+#logo{
+    cursor: pointer;
+}
+
+.hoverselected{
+    margin: 0px !important;
+    padding: 15px !important;
+    background: white;
+    color: black !important;
+}

@@ -1,0 +1,7 @@
+<section id="navbar">
+    <div class="container" id="navbarcontainer">
+      <label id="logo" [routerLink]="['/']">SamplePOS</label>
+      <label *ngIf="authService.loggedIn()" id="profile" [routerLink]="['/profile']" routerLinkActive="hoverselected">Profile</label>
+      <label *ngIf="authService.loggedIn()" id="logout" (click)="logout()">Log Out</label>
+    </div>
+</section>
