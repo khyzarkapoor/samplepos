@@ -1,8 +1,5 @@
 # SamplePOS
 
-## Note
-Please wait for the response after any request submission, (etc login-click, register-click etc). In future work, we can show spinners to user and make them wait before a response is recieved.
-
 ## Demo
 https://konstantvariablespos.herokuapp.com
 
