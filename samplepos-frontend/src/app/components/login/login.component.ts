@@ -13,6 +13,8 @@ export class LoginComponent implements OnInit {
   email: String = "";
   password: String = "";
 
+  showspinner:boolean=false;
+
   constructor(private validateService: ValidateService, private authService:AuthService, private router:Router) { }
 
   ngOnInit() {
@@ -23,6 +25,8 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.showspinner = true;
+
     const user = {
       email: this.email,
       password: this.password
@@ -30,17 +34,20 @@ export class LoginComponent implements OnInit {
 
     // check if all the fields are there
     if (!this.validateService.validateLogin(user)) {
-      alert("Please input all fields.")
+      alert("Please input all fields.");
+      this.showspinner = false;
       return false;
     }
 
     // check if email is valid
     if (!this.validateService.validateEmail(user.email)) {
-      alert("Please provide a valid email.")
+      alert("Please provide a valid email.");
+      this.showspinner = false;
       return false;
     }
 
     this.authService.authenticate(user).subscribe(data=>{
+      this.showspinner = false;
       if(data.success){
         // clear the localstorage for any prior values
         localStorage.clear();

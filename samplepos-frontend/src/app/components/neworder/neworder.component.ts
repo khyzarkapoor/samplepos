@@ -13,6 +13,7 @@ export class NeworderComponent implements OnInit {
   foodactive:boolean=false;
   othersactive:boolean=false;
   totalbill:number=0;
+  showspinner:boolean=false;
 
   constructor(private productService:ProductService,private orderService:OrderService,private router:Router) { }
 
@@ -26,6 +27,7 @@ export class NeworderComponent implements OnInit {
   }
 
   getAllFood(){
+    this.showspinner = true;
     this.contentitems = [];
     this.menuitems = [];
     this.foodactive=true;
@@ -41,10 +43,12 @@ export class NeworderComponent implements OnInit {
         alert(data.error);
         return false;
       }
+      this.showspinner = false;
     })
   }
 
   getAllOthers(){
+    this.showspinner= true;
     this.contentitems = [];
     this.menuitems = [];
     this.foodactive=false;
@@ -59,10 +63,11 @@ export class NeworderComponent implements OnInit {
         alert(data.error);
         return false;
       }
+      this.showspinner=false;
     })
   }
 
-  addquantity(id){    
+  addquantity(id){ 
     this.addeditems.forEach(element => {
       if(element._id === id){        
         element.quantity += 1;
@@ -114,6 +119,7 @@ export class NeworderComponent implements OnInit {
   }
 
   checkout(){
+    this.showspinner = true;
     if(this.addeditems.length > 0){
 
       const orderdetails = [];
@@ -143,8 +149,10 @@ export class NeworderComponent implements OnInit {
           alert(data.error+"\n"+JSON.stringify(data.errordetails));
           return;
         }
+        this.showspinner=false;
       })
     }else{
+      this.showspinner=false;
       alert("There are no items in the cart.");
     }
   }

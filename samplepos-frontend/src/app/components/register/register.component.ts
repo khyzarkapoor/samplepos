@@ -14,6 +14,7 @@ export class RegisterComponent implements OnInit {
   phone: String = "";
   email: String = "";
   password: String = "";
+  showspinner:boolean = false;
 
   constructor(private validateService: ValidateService, private authService:AuthService, private router:Router) { }
 // if already logged in then redirect to options page
@@ -24,6 +25,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
+    this.showspinner = true;
     const user = {
       name: this.name,
       phone: this.phone,
@@ -33,18 +35,21 @@ export class RegisterComponent implements OnInit {
 
     // check if all the fields are there
     if (!this.validateService.validateRegister(user)) {
-      alert("Please input all fields.")
+      alert("Please input all fields.");
+      this.showspinner = false;
       return false;
     }
 
     // check if email is valid
     if (!this.validateService.validateEmail(user.email)) {
-      alert("Please provide a valid email.")
+      alert("Please provide a valid email.");
+      this.showspinner = false;
       return false;
     }
 
     if(!this.validateService.validateNumericValues(user.phone)){
-      alert("Please provide a valid phone.")
+      alert("Please provide a valid phone.");
+      this.showspinner = false;
       return false;
     }
 
@@ -57,6 +62,7 @@ export class RegisterComponent implements OnInit {
         alert(data.error);
         this.router.navigate(['/register'])
       }
+      this.showspinner=false;
     })
 
   }

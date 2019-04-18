@@ -10,17 +10,20 @@ import { Router } from "@angular/router";
 export class ProfileComponent implements OnInit {
 
   user:Object
+  showspinner:boolean=false;
 
   constructor(private authService:AuthService, private router:Router) { }
 
   ngOnInit() {
+    this.showspinner=true;
     this.authService.profile().subscribe(data=>{
-      console.log(data);
       if(data.success){
         this.user = data;
       }
+      this.showspinner = false;
     },
     err=>{
+      this.showspinner=false;
       alert(err);
       localStorage.clear();
       this.router.navigate(['/']);

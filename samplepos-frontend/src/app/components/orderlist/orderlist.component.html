@@ -9,6 +9,9 @@
       <div *ngIf="orderlist.length==0">
         <p class="small">No orders have been registered yet.</p>
       </div>
+      <div class="text-center" *ngIf="showspinner==true">
+        <span><i class="fa fa-spinner fa-2x fa-spin"></i></span>
+      </div>
       <div *ngIf="orderlist.length>0" class="table table-responsive">
           <table class="table table-bordered table-bordered table-condensed">
             <thead>

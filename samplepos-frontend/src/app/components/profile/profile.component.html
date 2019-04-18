@@ -1,6 +1,9 @@
 <section *ngIf="user">
   <div class="row">
     <div class="col-md-6 offset-md-3 text-center">
+        <div class="text-center" *ngIf="showspinner==true">
+            <span><i class="fa fa-spinner fa-2x fa-spin"></i></span>
+          </div>
       <div>
         <b>Name:</b> <br>{{user.name}}
       </div>

@@ -10,16 +10,19 @@ import { Router } from "@angular/router";
 })
 export class ProductlistComponent implements OnInit {
 
+  showspinner:boolean =false;
   productlist:any=[];
   constructor(private productService:ProductService, private router:Router,private authService:AuthService) { }
 
   ngOnInit() {
+    this.showspinner = true;
     this.productService.getAllProducts().subscribe(data=>{
       if(data.success){
         this.productlist = data.data;
       }else{
         alert(data.error);
       }
+      this.showspinner = false;
     })
   }
 

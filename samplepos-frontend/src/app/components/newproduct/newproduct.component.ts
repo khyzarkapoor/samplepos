@@ -14,6 +14,7 @@ export class NewproductComponent implements OnInit {
   category:String="";
   baseprice:Number=0;
   quantity:Number=0;
+  showspinner:boolean= false;
 
   constructor(private route:ActivatedRoute, private productService:ProductService, private router:Router, private validateService:ValidateService) { }
 
@@ -21,6 +22,7 @@ export class NewproductComponent implements OnInit {
   }
 
   addproduct(){
+    this.showspinner = true;
     let product = {
       name:this.name,
       category:this.category,
@@ -30,16 +32,19 @@ export class NewproductComponent implements OnInit {
 
     if(!this.validateService.validateNewProduct(product)){
       alert("Please provide all required fields.");
+      this.showspinner =false;
       return false;
     }
 
     if(!this.validateService.validateNumericValues(product.baseprice)){
       alert("Please provide valid values for numeric fields");
+      this.showspinner = false;
       return false;
     }
 
     if(!this.validateService.validateNumericValues(product.quantity)){
       alert("Please provide valid values for numeric fields");
+      this.showspinner = false;
       return false;
     }
 
@@ -51,6 +56,7 @@ export class NewproductComponent implements OnInit {
         alert(data.error);
         return false;
       }
+      this.showspinner = false;
     })
   }
 

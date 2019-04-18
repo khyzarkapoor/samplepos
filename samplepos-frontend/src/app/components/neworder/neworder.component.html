@@ -6,6 +6,9 @@
         <a class="menu" [ngClass]="{'active':othersactive===true}" id="others" (click)="getAllOthers()">Others</a>
       </div>
       <hr>
+      <div class="text-center" *ngIf="showspinner==true">
+        <span><i class="fa fa-spinner fa-2x fa-spin"></i></span>
+      </div>
       <div class="contentwrapper" *ngIf="contentitems.length>0">
         <input [disabled]="item.newquantity===0" *ngFor="let item of contentitems; let i=index" type="button" value="{{item.name}} ({{item.newquantity}})" (click)="addToTable(item)" class="contentbtn btn btn-primary btn-sm">
       </div>
@@ -41,7 +44,7 @@
                     Total Bill : {{totalbill}}Rs.
                   </td>
                   <td colspan="2">
-                      <input type="button" (click)="checkout()" value="CheckOut" class="btn btn-primary btn-sm btn-block">
+                      <input [disabled]="showspinner==true" type="button" (click)="checkout()" value="CheckOut" class="btn btn-primary btn-sm btn-block">
                     </td>
                 </tr>
               </tfoot>

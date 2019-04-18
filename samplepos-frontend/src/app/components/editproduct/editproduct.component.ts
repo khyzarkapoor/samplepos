@@ -14,6 +14,7 @@ export class EditproductComponent implements OnInit {
   category:String="";
   baseprice:Number=0;
   quantity:Number=0;
+  showspinner:boolean=false;
 
   constructor(private route:ActivatedRoute, private productService:ProductService, private router:Router, private validateService:ValidateService) { }
 
@@ -22,6 +23,7 @@ export class EditproductComponent implements OnInit {
   }
 
   getProduct(){
+    this.showspinner = true;
     this.productService.getUnitProduct(this.route.snapshot.queryParams['productid']).subscribe(data=>{
       if(data.success){
         this.name = data.data.name;
@@ -33,10 +35,12 @@ export class EditproductComponent implements OnInit {
         this.router.navigate(['/products']);
         return false;
       }
+      this.showspinner = false;
     });
   }
 
   update(){
+    this.showspinner = true;
     const product = {
       id:this.route.snapshot.queryParams['productid'],
       name:this.name,
@@ -47,16 +51,19 @@ export class EditproductComponent implements OnInit {
 
     if(!this.validateService.validateProduct(product)){
       alert("Please provide all required fields.");
+      this.showspinner =false;
       return false;
     }
 
     if(!this.validateService.validateNumericValues(product.baseprice)){
       alert("Please provide valid values for numeric fields");
+      this.showspinner=false;
       return false;
     }
 
     if(!this.validateService.validateNumericValues(product.quantity)){
       alert("Please provide valid values for numeric fields");
+      this.showspinner = false;
       return false;
     }
 
@@ -68,11 +75,13 @@ export class EditproductComponent implements OnInit {
         alert(data.error);
         return false;
       }
+      this.showspinner = false;
     });
     
   }
 
   deleteProduct(){
+    this.showspinner = true;
     this.productService.deleteUnitProduct(this.route.snapshot.queryParams['productid']).subscribe(data=>{
       if(data.success){
         alert("Product was deleted.")
@@ -81,6 +90,7 @@ export class EditproductComponent implements OnInit {
         alert(data.error);
         return false;
       }
+      this.showspinner = false;
 
     })
   }
